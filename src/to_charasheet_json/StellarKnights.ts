@@ -32,7 +32,12 @@ type Character = {
 };
 
 const ToStellarKnightsCcfolia=(json:any,key:string):CharacterClipboardData=>{
-  console.log(json.base.name);
+  console.log(json);
+
+  const skillList=()=>{
+    return Object.keys(json.skills).map((key)=>{return {label:`${Number(key)+1}:${json.skills[key].name}`, value: 0, max: 0}})
+  }
+
   const data:Character={
     name:json.base.name,
     memo:json.base.phrase,
@@ -40,7 +45,8 @@ const ToStellarKnightsCcfolia=(json:any,key:string):CharacterClipboardData=>{
     status:[
       {label:"耐久力", value: json.status.hp, max: json.status.hp},
       {label:"防御力", value: json.status.defense, max: json.status.defense},
-      {label:"チャージ", value: json.status.charge, max: 0},
+      //{label:"チャージ", value: json.status.charge, max: 0},
+      ...skillList()
     ],
     iconUrl:null,
     faces:[{iconUrl: null,label:""}],
