@@ -14,7 +14,7 @@ type Character = {
     value: number;
     max: number;
   }[];
-  params: { label: string; value: string }[];
+  params?: { label: string; value: string }[];
   iconUrl: string | null; // [!]
   faces: { iconUrl: string | null; label: string }[]; // [!]
   x: number; // [!]
@@ -39,10 +39,8 @@ const ToStellarKnightsCcfolia=(json:any,key:string):CharacterClipboardData=>{
     externalUrl:`http://character-sheets.appspot.com/stellar/display?ajax=1&key=${key}`,
     status:[
       {label:"耐久力", value: json.status.hp, max: json.status.hp},
-      {label:"防御力", value: json.status.defence, max: json.status.defence},
-    ],
-    params:[
-      {label:"チャージ", value: json.status.charge}
+      {label:"防御力", value: json.status.defense, max: json.status.defense},
+      {label:"チャージ", value: json.status.charge, max: 0},
     ],
     iconUrl:null,
     faces:[{iconUrl: null,label:""}],
