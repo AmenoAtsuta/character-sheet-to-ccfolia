@@ -49,7 +49,7 @@ const App:React.VFC=()=>{
 
   useEffect(()=>{
     if(sheetId!=="" && system!==""){
-      fetchJsonp(`http://character-sheets.appspot.com/${system}/display?ajax=1&key=${sheetId}`,{
+      fetchJsonp(`https://character-sheets.appspot.com/${system}/display?ajax=1&key=${sheetId}`,{
         jsonpCallback: 'callback',
       })
       .then((res)=>{return res.json()})
