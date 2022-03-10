@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import fetchJsonp from "fetch-jsonp"
+import {ToStellarKnightsCcfolia} from "./to_charasheet_json/StellarKnights"
 import logo from './logo.svg';
 import './App.css';
 
@@ -13,12 +14,26 @@ const App:React.VFC=()=>{
       jsonpCallback: 'callback',
     })
     .then((res)=>{return res.json()})
-    .then((json)=>{setResCharaSheet(json)})
-    .then(()=>{console.log(resCharaSheet)})
+    .then((json)=>{
+      console.log(json);
+      switch(system){
+        case "stellar":
+          setResCharaSheet(ToStellarKnightsCcfolia(json,sheetId))
+          break
+      }
+    })
     .catch(err=>console.log(err))
-
   },[])
 
+  const copyCharaSheetJson=()=>{
+    navigator.clipboard.writeText(resCharaSheet.toString())
+    .then(()=>{
+      console.log('クリップボードへのコピーに成功');
+    })
+    .catch((err)=>{console.log(err)})
+  }
+
+  
   return (
     <div className="App">
       <header className="App-header">
