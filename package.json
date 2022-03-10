@@ -1,5 +1,6 @@
 {
   "name": "character-sheet-to-ccfolia",
+  "homepage": "https://AmenoAtsuta.github.io/character-sheet-to-ccfolia",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "npm run build && gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
