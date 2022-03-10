@@ -16,6 +16,7 @@
     "@types/react-dom": "^17.0.13",
     "emotion-reset": "^3.0.1",
     "fetch-jsonp": "^1.2.1",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
