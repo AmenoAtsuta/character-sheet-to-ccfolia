@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react';
 import fetchJsonp from "fetch-jsonp"
-import {Button, TextField} from '@material-ui/core';
+import {Button, TextField, Link} from '@material-ui/core';
 import { css } from '@emotion/react'
 import { styled } from '@mui/material/styles'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -77,6 +77,15 @@ const App:React.VFC=()=>{
     )
   }
 
+  const PageFooter:React.FC=()=>{
+    return (
+      <footer>
+        <p>このプログラムのライセンス:CC BY-NC-SA 4.0 ただしNCの部分はYoutubeなどの動画配信サイトでTRPG動画の収益化は認めます</p>
+        <p>作者:熱田アメノ <Link href="https://twitter.com/AmenoAtsuta" underline="hover">Twitter</Link> <Link href="https://www.youtube.com/channel/UCcNBKvsZBMPMJTwNaraELHg" underline="hover">Youtube</Link></p>
+      </footer>
+    )
+  }
+
   const copyCharaSheetJson=():void=>{
     navigator.clipboard.writeText(JSON.stringify(resCharaSheet))
     .then(()=>{
@@ -113,6 +122,7 @@ const App:React.VFC=()=>{
         <Button variant="contained" onClick={()=>copyCharaSheetJson()}>
           ココフォリア出力用にコピー
         </Button>
+        <PageFooter/>
       </div>
     </ThemeProvider>
   );
