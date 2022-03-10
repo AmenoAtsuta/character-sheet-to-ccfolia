@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+# ココフォリア用コマ作成ツール
+## はじめに
+このツールはCoC以外のシステムでココフォリアに直接コマをペーストできるツールがなかった為作りました。
+本ツールを使用することによって生じた損害は責任を負いません。
+現在はα版となっておりキャラクターシート倉庫様の銀剣のステラナイツにのみ対応しております。
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 使い方
+1. キャラクターシート倉庫のキャラシページからIDをコピーする(URLのhttps://character-sheets.appspot.com/stellar/edit.html?key=***[ここに書いてある長い英数字の羅列がID]***)
+2. "ここにIDをペースト"と書いてあるところにコピーしたキャラシIDをペースト
+3. "ココフォリア出力用にコピー"ボタンをクリックして、"クリップボードにコピーしました"と表示されれば成功
+4. ココフォリアにペーストするとコマが出来上がります
 
-## Available Scripts
+## ライセンス
+このプログラムのライセンス:CC BY-NC-SA 4.0 ただしNCの部分はYoutubeなどの動画配信サイトでTRPG動画の収益化は認めます
+クレジット表記はTwitterIDがわかるような形が望ましいです。
+* 例:©2022 熱田アメノ(Twitter:@AmenoAtsuta)
+またキャラクターシート倉庫様、ココフォリア開発者様及びシステムの版権元の方々とは無関係ですのでご迷惑のおかけすることのないようにお願いします。
 
-In the project directory, you can run:
+## 今後の開発
+キャラクターシート倉庫様とキャラクターシート保管庫様で私が使っているシステムにある程度対応したら正式版としてリリースを考えています。
+CoCはいあきゃら様が使いやすい先駆者としていらっしゃいますので現状対応予定はありません。
+また、将来的にはユドナリウムへの対応も検討しております。
 
-### `npm start`
+### 対応する気があるシステム
+* 銀剣のステラナイツ(対応済み)
+* アリアンロッド2E
+* シノビガミ
+* ダブルクロス3rd
+* ゴブリンスレイヤーTRPG
+* アンサング・デュエット
+* デッドラインヒーローズ
+* フタリソウサ
+* サタスペ
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 対応したいけどオンライン上にキャラシ保管出来ないシステム
+* 光砕のリヴァルチャー
+* プリンセスウイング
