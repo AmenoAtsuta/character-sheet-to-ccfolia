@@ -1,5 +1,7 @@
+/** @jsxImportSource @emotion/react */
 import React, { useEffect, useState } from 'react';
 import fetchJsonp from "fetch-jsonp"
+import {Button} from '@material-ui/core';
 import { styled } from '@mui/material/styles'
 import {ToStellarKnightsCcfolia} from "./to_charasheet_json/StellarKnights"
 import logo from './logo.svg';
@@ -27,7 +29,7 @@ const App:React.VFC=()=>{
   },[])
 
   const copyCharaSheetJson=()=>{
-    navigator.clipboard.writeText(resCharaSheet.toString())
+    navigator.clipboard.writeText(JSON.stringify(resCharaSheet))
     .then(()=>{
       console.log('クリップボードへのコピーに成功');
     })
@@ -37,20 +39,9 @@ const App:React.VFC=()=>{
   
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Button variant="contained" onClick={()=>copyCharaSheetJson()}>
+        ココフォリア出力用にコピー
+      </Button>
     </div>
   );
 }
