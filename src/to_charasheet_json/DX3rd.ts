@@ -35,7 +35,7 @@ const ToDX3rdCcfolia=(json:any, key:string):CharacterClipboardData=>{
   const data:Character={
     name: json.data_title,
     memo: json.pc_making_memo,
-    initiative: json.armer_total_act,
+    initiative: Number(json.armer_total_act),
     externalUrl: `https://charasheet.vampire-blood.net/${key}`,
     status:[
       {label: "HP", value: json.NP5, max: json.NP5},
