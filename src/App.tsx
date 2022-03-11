@@ -60,10 +60,10 @@ const App:React.VFC=()=>{
   const [charaSheetUrl,setCharaSheetUrl]=useState<string>("")
 
   const inputForms=css`
-    margin: 2.5% 0;
+    margin: 2% 0;
   `
   const inputId=css`
-    width:40%;
+    width:80%;
   `
 
   const howToUseUl=css`
@@ -73,7 +73,7 @@ const App:React.VFC=()=>{
 
   const howToUseLi=css`
     list-style-type:demical;
-    margin:2% 0;
+    margin:1% 0;
   `
 
   const spanEmphasis=css`
@@ -85,9 +85,7 @@ const App:React.VFC=()=>{
       <div css={inputForms}>
         <form>
           <TextField variant="standard" label="ここにURLをペースト" onChange={idHandleChange} value={charaSheetUrl} css={inputId} name="url" />
-          <Button variant="contained" onClick={handleSubmit} >
-          ココフォリア出力用にコピー
-          </Button>
+          
         </form>
       </div>
     )
@@ -172,6 +170,9 @@ const App:React.VFC=()=>{
           <li css={howToUseLi}>ココフォリアにペーストするとコマが出来上がります</li>
         </ul>
         <InputForm/>
+        <Button variant="contained" onClick={handleSubmit} >
+          ココフォリア出力用にコピー
+        </Button>
         <PageFooter/>
       </div>
     </ThemeProvider>
