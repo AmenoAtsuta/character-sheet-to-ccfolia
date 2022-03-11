@@ -6,6 +6,7 @@ import { css } from '@emotion/react'
 import { styled } from '@mui/material/styles'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {indigo, red} from '@mui/material/colors'
+import { List, ListItem, ListItemText } from '@mui/material';
 import {ToStellarKnightsCcfolia} from "./to_charasheet_json/StellarKnights"
 import VampireBloodSystemSort from './to_charasheet_json/VampireBloodSystemSorting';
 import './App.css';
@@ -80,8 +81,12 @@ const App:React.VFC=()=>{
   `
 
   const systemListLi=css`
-    width:10%;
+    width:15%;
     margin:0 auto;
+    text-align:center;
+    &:hover{
+      cursor: default;
+    }
   `
 
   /*const spanEmphasis=css`
@@ -195,13 +200,17 @@ const App:React.VFC=()=>{
         </p>
         <h2>対応システム</h2>
         <h3>キャラクターシート倉庫様</h3>
-        <ul>
-          <li css={systemListLi}>銀剣のステラナイツ</li>
-        </ul>
+        <List component="nav">
+          <ListItem divider button alignItems='center' css={systemListLi}>
+            <ListItemText primary="銀剣のステラナイツ" />
+          </ListItem>
+        </List>
         <h3>キャラクター保管所様</h3>
-        <ul>
-          <li css={systemListLi}>ダブルクロス3rd</li>
-        </ul>
+        <List component="nav">
+          <ListItem divider button alignItems='center' css={systemListLi}>
+            <ListItemText primary="ダブルクロス3rd" />
+          </ListItem>
+        </List>
         <h2>使い方</h2>
         <ul css={howToUseUl}>
           <li css={howToUseLi}>キャラクターシート倉庫またはキャラクター保管所のキャラシページからURLをコピーする</li>
