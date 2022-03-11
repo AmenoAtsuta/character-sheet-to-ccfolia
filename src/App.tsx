@@ -9,6 +9,7 @@ import {indigo, red} from '@mui/material/colors'
 import {ToStellarKnightsCcfolia} from "./to_charasheet_json/StellarKnights"
 import './App.css';
 
+//ココフォリア出力用のtype定義
 type CharacterClipboardData = {
   kind: "character";
   data: Partial<Character>;
@@ -54,11 +55,12 @@ const darkTheme=createTheme({
 });
 
 const App:React.VFC=()=>{
-  const [system,setSystem]=useState<string>("stellar")
-  const [sheetId,setSheetId]=useState<string>("")
-  const [resCharaSheet,setResCharaSheet]=useState({});
-  const [charaSheetUrl,setCharaSheetUrl]=useState<string>("")
+  const [system,setSystem]=useState<string>("stellar")//システム識別用のstate
+  const [sheetId,setSheetId]=useState<string>("")//キャラシIDを保存するstate
+  const [resCharaSheet,setResCharaSheet]=useState({})//APIで帰ってきたJSON保存用のstate
+  const [charaSheetUrl,setCharaSheetUrl]=useState<string>("")//キャラシが保管してあるURLを保存するstate
 
+  //以下emotionによるCSS記述
   const inputForms=css`
     margin: 2% 0;
   `
@@ -76,22 +78,23 @@ const App:React.VFC=()=>{
     margin:1% 0;
   `
 
-  const spanEmphasis=css`
+  /*const spanEmphasis=css`
     color:red;
-  `
+  `*/
 
+  //以下Reactコンポーネント
   const InputForm:React.VFC=()=>{
     return (
       <div css={inputForms}>
         <form>
+          {/*Material UIで用意されているコンポーネントであるTextFieldを使用している*/}
           <TextField variant="standard" label="ここにURLをペースト" onChange={idHandleChange} value={charaSheetUrl} css={inputId} name="url" />
-          
         </form>
       </div>
     )
   }
 
-  const PageFooter:React.FC=()=>{
+  const PageFooter:React.VFC=()=>{
     return (
       <footer>
         <p>このプログラムのライセンス:CC BY-NC-SA 4.0 ただしNCの部分はYoutubeなどの動画配信サイトでTRPG動画の収益化は認めます</p>
@@ -100,53 +103,58 @@ const App:React.VFC=()=>{
     )
   }
 
-  const handleSubmit=()=>{
+  //以下コンポーネント以外の関数
+
+  const handleSubmit=()=>{//submit時に実行される関数
     console.log(sheetId)
-    if(charaSheetUrl.includes("character-sheets.appspot.com") && sheetId!==""){
+    if(charaSheetUrl.includes("character-sheets.appspot.com") && sheetId!==""){//キャラクターシート倉庫のURLである場合、かつIDが入力されている場合に実行
       console.log(`https://character-sheets.appspot.com/${system}/display?ajax=1&key=${sheetId}`)
       fetchJsonp(`https://character-sheets.appspot.com/${system}/display?ajax=1&key=${sheetId}`,{
         jsonpCallback: 'callback',
-      })
-      .then((res)=>{return res.json()})
+      })//JSONPを取得するための非同期通信を開始
+      .then((res)=>{return res.json()})//返り値をオブジェクトに変換
       .then((json)=>{
         console.log(json);
-        switch(system){
-          case "stellar":
+        switch(system){//システムにより処理を分岐
+          case "stellar"://ステラナイツの場合
             setResCharaSheet(ToStellarKnightsCcfolia(json,sheetId))
-            copyCharaSheetJson(ToStellarKnightsCcfolia(json,sheetId))
+            copyCharaSheetJson(ToStellarKnightsCcfolia(json,sheetId))//クリップボードにコピーする関数の呼び出し
             break
         }
-      }).then(()=>{
-        console.log(resCharaSheet)
-        
       })
-      .catch((err)=>{
+      .catch((err)=>{//一連の処理中(主にJSONP取得時)にエラーが発生したときに呼び出される
         console.log(err)
         alert("キャラシの取得に失敗しました")
       })
     }
   }
 
-  const copyCharaSheetJson=(res:CharacterClipboardData):void=>{
-    navigator.clipboard.writeText(JSON.stringify(res))
+  const copyCharaSheetJson=(res:CharacterClipboardData):void=>{//JSONをクリップボードにコピーする関数
+    navigator.clipboard.writeText(JSON.stringify(res))//JSONオブジェクトをstringに変換してからクリップボードにコピーしている
     .then(()=>{
       console.log('クリップボードへのコピーに成功')
       alert("クリップボードにコピーしました")
     })
-    .catch((err)=>{console.log(err)})
+    .catch((err)=>{console.log(err)})//コピー処理で問題があったときに呼び出し
   }
 
+  /*
+  入力されたURLが変化したときに呼び出される
+  こんな変な処理にしたのはsetSheetIdでIDをセットしても非同期故に(おそらく)再レンダリングまでstateが反映されないため
+  先にstateに打ち込んでしまおうという脳筋的解決
+  誰かいい処理方法があったら教えて下さい
+  */
   useEffect(()=>{
     if(charaSheetUrl.includes("character-sheets.appspot.com")){
-      setSheetId(charaSheetUrl.slice(charaSheetUrl.indexOf("key=")+4))
-      setSystem(charaSheetUrl.slice(charaSheetUrl.indexOf("com/")+4,charaSheetUrl.indexOf("/",charaSheetUrl.indexOf("com/")+4)))
+      setSheetId(charaSheetUrl.slice(charaSheetUrl.indexOf("key=")+4))//URLにkey=より後ろのIDをセット
+      setSystem(charaSheetUrl.slice(charaSheetUrl.indexOf("com/")+4,charaSheetUrl.indexOf("/",charaSheetUrl.indexOf("com/")+4)))//URLから.com/の後ろの次の/までのシステムが書いてある部分を取得
       //setSheetId(charaSheetUrl.slice(charaSheetUrl.indexOf("key=")+4))
       console.log(sheetId)
       console.log(system)
     }
   },[charaSheetUrl])
 
-  const idHandleChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
+  const idHandleChange=(event:React.ChangeEvent<HTMLInputElement>)=>{//Reactおなじみのテキストボックスに入力された値を制御する関数
     setCharaSheetUrl(event.target.value)
   }
 

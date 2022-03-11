@@ -1,4 +1,4 @@
-
+//type定義はココフォリアにペーストするための形式
 type CharacterClipboardData = {
   kind: "character";
   data: Partial<Character>;
@@ -35,6 +35,7 @@ const ToStellarKnightsCcfolia=(json:any,key:string):CharacterClipboardData=>{
   console.log(json);
 
   const skillList=()=>{
+    //ブリンガーのスキルをループで取得し、それを配列にしている
     return Object.keys(json.skills).map((key)=>{return {label:`${Number(key)+1}:${json.skills[key].name}`, value: 0, max: 0}})
   }
 
@@ -46,7 +47,7 @@ const ToStellarKnightsCcfolia=(json:any,key:string):CharacterClipboardData=>{
       {label:"耐久力", value: json.status.hp, max: json.status.hp},
       {label:"防御力", value: json.status.defense, max: json.status.defense},
       //{label:"チャージ", value: json.status.charge, max: 0},
-      ...skillList()
+      ...skillList()//配列で帰ってきてるのでスプレッド構文で配列の[]を外している
     ],
     iconUrl:null,
     faces:[{iconUrl: null,label:""}],
