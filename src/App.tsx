@@ -166,8 +166,8 @@ const App:React.VFC=()=>{
         </p>
         <h2>使い方</h2>
         <ul css={howToUseUl}>
-          <li css={howToUseLi}>キャラクターシート倉庫のキャラシページからIDをコピーする(URLのhttps://character-sheets.appspot.com/stellar/edit.html?key=<span css={spanEmphasis}>[ここに書いてある長い英数字の羅列がID]</span>)</li>
-          <li css={howToUseLi}>"ここにIDをペースト"と書いてあるところにコピーしたキャラシIDをペースト</li>
+          <li css={howToUseLi}>キャラクターシート倉庫のキャラシページからURLをコピーする</li>
+          <li css={howToUseLi}>"ここにIDをペースト"と書いてあるところにコピーしたURLをペースト</li>
           <li css={howToUseLi}>"ココフォリア出力用にコピー"ボタンをクリックして、"クリップボードにコピーしました"と表示されれば成功</li>
           <li css={howToUseLi}>ココフォリアにペーストするとコマが出来上がります</li>
         </ul>
