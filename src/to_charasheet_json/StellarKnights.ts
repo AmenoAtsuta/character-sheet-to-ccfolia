@@ -42,7 +42,7 @@ const ToStellarKnightsCcfolia=(json:any,key:string):CharacterClipboardData=>{
   const data:Character={
     name:json.base.name,
     memo:json.base.phrase,
-    externalUrl:`http://character-sheets.appspot.com/stellar/display?ajax=1&key=${key}`,
+    externalUrl:`https://character-sheets.appspot.com/stellar/edit.html?key=${key}`,
     status:[
       {label:"耐久力", value: json.status.hp, max: json.status.hp},
       {label:"防御力", value: json.status.defense, max: json.status.defense},
