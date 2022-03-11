@@ -32,6 +32,12 @@ type Character = {
 };
 
 const ToDX3rdCcfolia=(json:any, key:string):CharacterClipboardData=>{
+  const roiceCount=()=>{
+    let count=0
+    json.roice_type.forEach((type:string)=>{if(type!=="1")++count})
+    return count
+  }
+
   const data:Character={
     name: json.data_title,
     memo: json.pc_making_memo,
@@ -40,6 +46,8 @@ const ToDX3rdCcfolia=(json:any, key:string):CharacterClipboardData=>{
     status:[
       {label: "HP", value: json.NP5, max: json.NP5},
       {label: "侵食率", value: json.NP6, max: 100},
+      {label: "ロイス", value: roiceCount(), max: roiceCount()},
+      {label: "財産点", value: json.money_point, max: json.money_point}
     ],
     params:[
       {label: "肉体", value: json.NP1},
