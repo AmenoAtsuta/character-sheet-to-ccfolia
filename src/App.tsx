@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {indigo, red} from '@mui/material/colors'
 import {ToStellarKnightsCcfolia} from "./to_charasheet_json/StellarKnights"
+import VampireBloodSystemSort from './to_charasheet_json/VampireBloodSystemSorting';
 import './App.css';
 
 //ココフォリア出力用のtype定義
@@ -120,7 +121,22 @@ const App:React.VFC=()=>{
             setResCharaSheet(ToStellarKnightsCcfolia(json,sheetId))
             copyCharaSheetJson(ToStellarKnightsCcfolia(json,sheetId))//クリップボードにコピーする関数の呼び出し
             break
+          default:
+            alert("対応していないシステムです")
         }
+      })
+      .catch((err)=>{//一連の処理中(主にJSONP取得時)にエラーが発生したときに呼び出される
+        console.log(err)
+        alert("キャラシの取得に失敗しました")
+      })
+    }else if(charaSheetUrl.includes("charasheet.vampire-blood.net") && sheetId!==""){
+      fetchJsonp(`https://charasheet.vampire-blood.net/${sheetId}.js`,{
+        jsonpCallback: 'callback',
+      })
+      .then((res)=>{return res.json()})//返り値をオブジェクトに変換
+      .then((json)=>{
+        console.log(json)
+        copyCharaSheetJson(VampireBloodSystemSort(json,sheetId))
       })
       .catch((err)=>{//一連の処理中(主にJSONP取得時)にエラーが発生したときに呼び出される
         console.log(err)
@@ -129,7 +145,8 @@ const App:React.VFC=()=>{
     }
   }
 
-  const copyCharaSheetJson=(res:CharacterClipboardData):void=>{//JSONをクリップボードにコピーする関数
+  const copyCharaSheetJson=(res:CharacterClipboardData|null):void=>{//JSONをクリップボードにコピーする関数
+    if(!res){return}
     navigator.clipboard.writeText(JSON.stringify(res))//JSONオブジェクトをstringに変換してからクリップボードにコピーしている
     .then(()=>{
       console.log('クリップボードへのコピーに成功')
@@ -151,6 +168,8 @@ const App:React.VFC=()=>{
       //setSheetId(charaSheetUrl.slice(charaSheetUrl.indexOf("key=")+4))
       console.log(sheetId)
       console.log(system)
+    }else if(charaSheetUrl.includes("charasheet.vampire-blood.net")){
+      setSheetId(charaSheetUrl.slice(charaSheetUrl.indexOf("net/")+4))
     }
   },[charaSheetUrl])
 
