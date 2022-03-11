@@ -9,6 +9,38 @@ import {indigo, red} from '@mui/material/colors'
 import {ToStellarKnightsCcfolia} from "./to_charasheet_json/StellarKnights"
 import './App.css';
 
+type CharacterClipboardData = {
+  kind: "character";
+  data: Partial<Character>;
+}
+
+type Character = {
+  name: string;
+  memo: string;
+  initiative?: number;
+  externalUrl: string;
+  status: {
+    label: string;
+    value: number;
+    max: number;
+  }[];
+  params?: { label: string; value: string }[];
+  iconUrl: string | null; // [!]
+  faces: { iconUrl: string | null; label: string }[]; // [!]
+  x: number; // [!]
+  y: number; // [!]
+  angle?: number;
+  width?: number;
+  height?: number;
+  active: boolean; // [!]
+  secret?: boolean;
+  invisible?: boolean;
+  hideStatus?: boolean;
+  color?: string;
+  commands?: string;
+  owner?: string | null;
+};
+
 const darkTheme=createTheme({
   palette:{
     mode: 'dark',
@@ -25,6 +57,7 @@ const App:React.VFC=()=>{
   const [system,setSystem]=useState<string>("stellar")
   const [sheetId,setSheetId]=useState<string>("")
   const [resCharaSheet,setResCharaSheet]=useState({});
+  const [charaSheetUrl,setCharaSheetUrl]=useState<string>("")
 
   const inputForms=css`
     margin: 2.5% 0;
@@ -47,31 +80,14 @@ const App:React.VFC=()=>{
     color:red;
   `
 
-  useEffect(()=>{
-    if(sheetId!=="" && system!==""){
-      fetchJsonp(`https://character-sheets.appspot.com/${system}/display?ajax=1&key=${sheetId}`,{
-        jsonpCallback: 'callback',
-      })
-      .then((res)=>{return res.json()})
-      .then((json)=>{
-        console.log(json);
-        switch(system){
-          case "stellar":
-            setResCharaSheet(ToStellarKnightsCcfolia(json,sheetId))
-            break
-        }
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
-  }
-  },[sheetId,system])
-
   const InputForm:React.VFC=()=>{
     return (
       <div css={inputForms}>
         <form>
-          <TextField variant="standard" label="ここにIDをペースト" onChange={idHandleChange} value={sheetId} css={inputId} />
+          <TextField variant="standard" label="ここにURLをペースト" onChange={idHandleChange} value={charaSheetUrl} css={inputId} name="url" />
+          <Button variant="contained" onClick={handleSubmit} >
+          ココフォリア出力用にコピー
+          </Button>
         </form>
       </div>
     )
@@ -86,8 +102,35 @@ const App:React.VFC=()=>{
     )
   }
 
-  const copyCharaSheetJson=():void=>{
-    navigator.clipboard.writeText(JSON.stringify(resCharaSheet))
+  const handleSubmit=()=>{
+    console.log(sheetId)
+    if(charaSheetUrl.includes("character-sheets.appspot.com") && sheetId!==""){
+      console.log(`https://character-sheets.appspot.com/${system}/display?ajax=1&key=${sheetId}`)
+      fetchJsonp(`https://character-sheets.appspot.com/${system}/display?ajax=1&key=${sheetId}`,{
+        jsonpCallback: 'callback',
+      })
+      .then((res)=>{return res.json()})
+      .then((json)=>{
+        console.log(json);
+        switch(system){
+          case "stellar":
+            setResCharaSheet(ToStellarKnightsCcfolia(json,sheetId))
+            copyCharaSheetJson(ToStellarKnightsCcfolia(json,sheetId))
+            break
+        }
+      }).then(()=>{
+        console.log(resCharaSheet)
+        
+      })
+      .catch((err)=>{
+        console.log(err)
+        alert("キャラシの取得に失敗しました")
+      })
+    }
+  }
+
+  const copyCharaSheetJson=(res:CharacterClipboardData):void=>{
+    navigator.clipboard.writeText(JSON.stringify(res))
     .then(()=>{
       console.log('クリップボードへのコピーに成功')
       alert("クリップボードにコピーしました")
@@ -95,8 +138,18 @@ const App:React.VFC=()=>{
     .catch((err)=>{console.log(err)})
   }
 
+  useEffect(()=>{
+    if(charaSheetUrl.includes("character-sheets.appspot.com")){
+      setSheetId(charaSheetUrl.slice(charaSheetUrl.indexOf("key=")+4))
+      setSystem(charaSheetUrl.slice(charaSheetUrl.indexOf("com/")+4,charaSheetUrl.indexOf("/",charaSheetUrl.indexOf("com/")+4)))
+      //setSheetId(charaSheetUrl.slice(charaSheetUrl.indexOf("key=")+4))
+      console.log(sheetId)
+      console.log(system)
+    }
+  },[charaSheetUrl])
+
   const idHandleChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
-    setSheetId(event.target.value)
+    setCharaSheetUrl(event.target.value)
   }
 
   
@@ -119,9 +172,6 @@ const App:React.VFC=()=>{
           <li css={howToUseLi}>ココフォリアにペーストするとコマが出来上がります</li>
         </ul>
         <InputForm/>
-        <Button variant="contained" onClick={()=>copyCharaSheetJson()}>
-          ココフォリア出力用にコピー
-        </Button>
         <PageFooter/>
       </div>
     </ThemeProvider>
