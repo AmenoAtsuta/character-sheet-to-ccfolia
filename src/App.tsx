@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {indigo, red} from '@mui/material/colors'
 import { List, ListItem, ListItemText } from '@mui/material';
-import {ToStellarKnightsCcfolia} from "./to_charasheet_json/StellarKnights"
+import {ToStellarKnightsCcfolia, ToStellarKnightsUdonarium} from "./to_charasheet_json/StellarKnights"
 import VampireBloodSystemSort from './to_charasheet_json/VampireBloodSystemSorting';
 import './App.css';
 
@@ -155,6 +155,46 @@ const App:React.VFC=()=>{
     }
   }
 
+  const handleSubmitUdonarium=()=>{//submit時に実行される関数
+    console.log(sheetId)
+    if(charaSheetUrl.includes("character-sheets.appspot.com") && sheetId!==""){//キャラクターシート倉庫のURLである場合、かつIDが入力されている場合に実行
+      console.log(`https://character-sheets.appspot.com/${system}/display?ajax=1&key=${sheetId}`)
+      fetchJsonp(`https://character-sheets.appspot.com/${system}/display?ajax=1&key=${sheetId}`,{
+        jsonpCallback: 'callback',
+      })//JSONPを取得するための非同期通信を開始
+      .then((res)=>{return res.json()})//返り値をオブジェクトに変換
+      .then((json)=>{
+        console.log(json);
+        switch(system){//システムにより処理を分岐
+          case "stellar"://ステラナイツの場合
+            const FileSaver = require('file-saver');
+            const blob = new Blob([ToStellarKnightsUdonarium(json)], {type: "text/xml;charset=utf-8"});
+            FileSaver.saveAs(blob, `${json.base.name}.xml`);
+            break
+          default:
+            alert("対応していないシステムです")
+        }
+      })
+      .catch((err)=>{//一連の処理中(主にJSONP取得時)にエラーが発生したときに呼び出される
+        console.log(err)
+        alert("キャラシの取得に失敗しました")
+      })
+    }else if(charaSheetUrl.includes("charasheet.vampire-blood.net") && sheetId!==""){
+      fetchJsonp(`https://charasheet.vampire-blood.net/${sheetId}.js`,{
+        jsonpCallback: 'callback',
+      })
+      .then((res)=>{return res.json()})//返り値をオブジェクトに変換
+      .then((json)=>{
+        console.log(json)
+        copyCharaSheetJson(VampireBloodSystemSort(json,sheetId))
+      })
+      .catch((err)=>{//一連の処理中(主にJSONP取得時)にエラーが発生したときに呼び出される
+        console.log(err)
+        alert("キャラシの取得に失敗しました")
+      })
+    }
+  }
+
   const copyCharaSheetJson=(res:CharacterClipboardData|null):void=>{//JSONをクリップボードにコピーする関数
     if(!res){return}
     navigator.clipboard.writeText(JSON.stringify(res))//JSONオブジェクトをstringに変換してからクリップボードにコピーしている
@@ -221,6 +261,9 @@ const App:React.VFC=()=>{
         <InputForm/>
         <Button variant="contained" onClick={handleSubmit} >
           ココフォリア出力用にコピー
+        </Button>
+        <Button variant="contained" onClick={handleSubmitUdonarium} >
+          ユドナリウム出力用にダウンロード
         </Button>
         <PageFooter/>
       </div>
