@@ -6,7 +6,8 @@ import { css } from '@emotion/react'
 import { styled } from '@mui/material/styles'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {indigo, red} from '@mui/material/colors'
-import { List, ListItem, ListItemText } from '@mui/material';
+import { List, ListItem, ListItemText, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {ToStellarKnightsCcfolia, ToStellarKnightsUdonarium} from "./to_charasheet_json/StellarKnights"
 import VampireBloodSystemSort from './to_charasheet_json/VampireBloodSystemSorting';
 import './App.css';
@@ -87,6 +88,10 @@ const App:React.VFC=()=>{
     &:hover{
       cursor: default;
     }
+  `
+
+  const buttons=css`
+    margin:0 2.5%!important;
   `
 
   /*const spanEmphasis=css`
@@ -238,19 +243,25 @@ const App:React.VFC=()=>{
           将来的には他システムへの対応(アリアンロッド2E辺りが優先になりそう。CoCは優秀な先駆者様がいますが若干足りない部分があるのでもしかしたら対応するかも。)<br/>
           ココフォリアだけでなく、ユドナリウムへの出力にも対応したいと思っています。
         </p>
-        <h2>対応システム</h2>
-        <h3>キャラクターシート倉庫様</h3>
-        <List component="nav">
-          <ListItem divider button alignItems='center' css={systemListLi}>
-            <ListItemText primary="銀剣のステラナイツ" />
-          </ListItem>
-        </List>
-        <h3>キャラクター保管所様</h3>
-        <List component="nav">
-          <ListItem divider button alignItems='center' css={systemListLi}>
-            <ListItemText primary="ダブルクロス3rd" />
-          </ListItem>
-        </List>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <h2>対応システム</h2>
+          </AccordionSummary>
+          <AccordionDetails>
+          <h3>キャラクターシート倉庫様</h3>
+          <List component="nav">
+            <ListItem divider button alignItems='center' css={systemListLi}>
+              <ListItemText primary="銀剣のステラナイツ" />
+            </ListItem>
+          </List>
+          <h3>キャラクター保管所様</h3>
+          <List component="nav">
+            <ListItem divider button alignItems='center' css={systemListLi}>
+              <ListItemText primary="ダブルクロス3rd" />
+            </ListItem>
+          </List>
+          </AccordionDetails>
+        </Accordion>
         <h2>使い方</h2>
         <ul css={howToUseUl}>
           <li css={howToUseLi}>キャラクターシート倉庫またはキャラクター保管所のキャラシページからURLをコピーする</li>
@@ -259,10 +270,10 @@ const App:React.VFC=()=>{
           <li css={howToUseLi}>ココフォリアにペーストするとコマが出来上がります</li>
         </ul>
         <InputForm/>
-        <Button variant="contained" onClick={handleSubmit} >
+        <Button css={buttons} variant="contained" onClick={handleSubmit} >
           ココフォリア出力用にコピー
         </Button>
-        <Button variant="contained" onClick={handleSubmitUdonarium} >
+        <Button css={buttons} variant="contained" onClick={handleSubmitUdonarium} >
           ユドナリウム出力用にダウンロード
         </Button>
         <PageFooter/>
