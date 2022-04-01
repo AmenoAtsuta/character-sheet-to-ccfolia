@@ -83,9 +83,10 @@ const App:React.VFC=()=>{
   `
 
   const systemListLi=css`
-    width:15%;
+    width:40%;
     margin:0 auto;
     text-align:center;
+    flex-flow: column;
     &:hover{
       cursor: default;
     }
@@ -255,8 +256,8 @@ const App:React.VFC=()=>{
           <h3>キャラクターシート倉庫様</h3>
           <List component="nav">
             <ListItem divider button alignItems='center' css={systemListLi}>
-              <ListItemText primary="銀剣のステラナイツ" />
-              <ListItemText primary="サタスペ()" />
+              <ListItemText primary="銀剣のステラナイツ(ユドナ仮対応)" />
+              <ListItemText primary="サタスペ" />
             </ListItem>
           </List>
           <h3>キャラクター保管所様</h3>
