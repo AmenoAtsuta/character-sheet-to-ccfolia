@@ -9,6 +9,7 @@ import {indigo, red} from '@mui/material/colors'
 import { List, ListItem, ListItemText, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {ToStellarKnightsCcfolia, ToStellarKnightsUdonarium} from "./to_charasheet_json/StellarKnights"
+import {ToSatasupeCcfolia, ToSatasupeUdonarium} from "./to_charasheet_json/Satasupe"
 import VampireBloodSystemSort from './to_charasheet_json/VampireBloodSystemSorting';
 import './App.css';
 
@@ -58,7 +59,7 @@ const darkTheme=createTheme({
 });
 
 const App:React.VFC=()=>{
-  const [system,setSystem]=useState<string>("stellar")//システム識別用のstate
+  const [system,setSystem]=useState<string>("")//システム識別用のstate
   const [sheetId,setSheetId]=useState<string>("")//キャラシIDを保存するstate
   const [resCharaSheet,setResCharaSheet]=useState({})//APIで帰ってきたJSON保存用のstate
   const [charaSheetUrl,setCharaSheetUrl]=useState<string>("")//キャラシが保管してあるURLを保存するstate
@@ -135,6 +136,9 @@ const App:React.VFC=()=>{
           case "stellar"://ステラナイツの場合
             setResCharaSheet(ToStellarKnightsCcfolia(json,sheetId))
             copyCharaSheetJson(ToStellarKnightsCcfolia(json,sheetId))//クリップボードにコピーする関数の呼び出し
+            break
+          case "satasupe":
+            copyCharaSheetJson(ToSatasupeCcfolia(json, sheetId))
             break
           default:
             alert("対応していないシステムです")
@@ -252,6 +256,7 @@ const App:React.VFC=()=>{
           <List component="nav">
             <ListItem divider button alignItems='center' css={systemListLi}>
               <ListItemText primary="銀剣のステラナイツ" />
+              <ListItemText primary="サタスペ()" />
             </ListItem>
           </List>
           <h3>キャラクター保管所様</h3>
