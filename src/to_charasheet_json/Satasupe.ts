@@ -47,7 +47,7 @@ const ToSatasupeCcfolia=(json:any,key:string):CharacterClipboardData=>{
 好きな映画:${json.base.movie}
 言語:${json.base.langueges}
 ${json.base.memo}`,
-    initiative: json.base.power.initiative,
+    initiative: Number(json.base.power.initiative),
     externalUrl:`https://character-sheets.appspot.com/stellar/edit.html?key=${key}`,
     status:[
       {label:"肉体点", value: 10, max: 10},
@@ -72,6 +72,18 @@ ${json.base.memo}`,
     x:2,
     y:2,
     active:true,
+    commands:`${json.base.abl.combat.value}R 戦闘判定\n
+${json.base.abl.crime.value}R 犯罪判定\n
+${json.base.abl.culture.value}R 教養判定\n
+${json.base.abl.life.value}R 生活判定\n
+${json.base.abl.love.value}R 恋愛判定\n
+${json.base.gift.body.value}R 肉体判定\n
+${json.base.gift.mind.value}R 精神判定\n
+CrimeIET 犯罪情報イベント表\n
+LifeIET 生活情報イベント表\n
+LoveIET 恋愛情報イベント表\n
+CultureIET 教養情報イベント表\n
+CombatIET 戦闘情報イベント表`,
   }
   return {kind:"character", data:data}
 }
