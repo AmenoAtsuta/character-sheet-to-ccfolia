@@ -62,7 +62,8 @@ const ToDX3rdCcfolia=(json:any, key:string):CharacterClipboardData=>{
     faces:[{iconUrl: null, label: ""}],
     x: 2,
     y: 2,
-    active: true
+    active: true,
+    commands:``
   }
 
   return {kind:"character", data:data}
