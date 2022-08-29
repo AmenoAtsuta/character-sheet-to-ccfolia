@@ -54,6 +54,32 @@ const ToStellarKnightsCcfolia=(json:any,key:string):CharacterClipboardData=>{
     x:2,
     y:2,
     active:true,
+    commands:`TT お題表
+STA シチュエーション表A:時間
+STB シチュエーション表B:場所
+STB2[n] シチュエーション表B その2:学園編 n: 1(アーセルトレイ), 2(イデアグロリア), 3(シトラ), 4(フィロソフィア), 5(聖アージェティア), 6(SoA)
+STC シチュエーション表C:話題
+ALLS シチュエーション表全てを一括で（学園編除く）
+GAT 所属組織決定
+HOT 希望表
+DET 絶望表
+WIT 願い事表
+YST あなたの物語表
+YSTA あなたの物語表:異世界
+PET 性格表 性格表を2回振り、性格を決定する
+YSTM あなたの物語表:マルジナリア世界
+STM シチュエーション表:マルジナリア世界
+YSTL あなたの物語表:手紙世界
+YSTR あなたの物語表:リコレクト・ドール
+STBR シチュエーション表B:場所（リコレクト・ドール）
+STCR シチュエーション表C:リコレクト
+STBS シチュエーション表B:シトラセッティング
+STE シチュエーション表:エクリプス専用
+FT フラグメント表 フラグメント表を5回振る
+FTx フラグメント表をx回振る
+YSTB あなたの物語表:ブリンガー
+YSTF あなたの物語表:フォージ
+STAL シチュエーション表:オルトリヴート`,
   }
   return {kind:"character", data:data}
 }
