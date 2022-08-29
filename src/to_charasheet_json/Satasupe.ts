@@ -79,11 +79,49 @@ ${json.base.abl.life.value}R 生活判定\n
 ${json.base.abl.love.value}R 恋愛判定\n
 ${json.base.gift.body.value}R 肉体判定\n
 ${json.base.gift.mind.value}R 精神判定\n
+SR${json.base.emotion} 性業値判定\n
+TAGT タグ決定表\n
+FumbleT 命中判定ファンブル表\n
+FatalT 致命傷表\n
+FatalVT 乗り物致命傷表\n
 CrimeIET 犯罪情報イベント表\n
 LifeIET 生活情報イベント表\n
 LoveIET 恋愛情報イベント表\n
 CultureIET 教養情報イベント表\n
-CombatIET 戦闘情報イベント表`,
+CombatIHT 戦闘情報イベント表\n
+CrimeIHT 犯罪情報ハプニング表\n
+LifeIHT 生活情報ハプニング表\n
+LoveIHT 恋愛情報ハプニング表\n
+CultureIHT 教養情報ハプニング表\n
+CombatIHT 戦闘情報ハプニング表\n
+RomanceFT ロマンスファンブル表\n
+AccidentT アクシデント表\n
+GeneralAT 汎用アクシデント表\n
+AfterT その後表\n
+KusaiMT 臭い飯表\n
+EnterT 登場表\n
+PayT 落とし前表\n
+TimeUT 時間切れ表\n
+BudTT バッドトリップ表\n
+NPCT NPCの年齢と好みを一括出力\n
+GetgT ガラクタ報酬表\n
+GetzT 実用品報酬表\n
+GetnT 値打ち物報酬表\n
+GetkT 奇天烈報酬表\n
+MinamiRET ミナミ遭遇表\n
+ChinatownRET 中華街遭遇表\n
+WarshipLandRET 軍艦島遭遇表\n
+CivicCenterRET 官庁街遭遇表\n
+DowntownRET 十三遭遇表\n
+ShaokinRET 沙京遭遇表\n
+LoveLoveRET らぶらぶ遭遇表\n
+AjitoRET アジト遭遇表\n
+JigokuSpaRET 地獄湯遭遇表\n
+JailHouseRET JAIL HOUSE遭遇表\n
+TreatmentIT 治療イベント表\n
+CollegeIT 大学イベント表\n
+GETSST 「サタスペ」のベースとアクセサリを出力(GETSSTのあとにアクセサリ数を入力、省略時1)
+`,
   }
   return {kind:"character", data:data}
 }
