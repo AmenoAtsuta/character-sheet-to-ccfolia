@@ -63,7 +63,20 @@ const ToDX3rdCcfolia=(json:any, key:string):CharacterClipboardData=>{
     x: 2,
     y: 2,
     active: true,
-    commands:``
+    commands:`C値や固定値がエフェクトなどによって変化する場合は適宜変えてください\n
+${json.skill_total[0].replace('r','dx')} 白兵判定\n
+${json.skill_total[1].replace('r','dx')+json.armer_total_dodge} 回避判定\n
+${json.skill_total[2].replace('r','dx')} 運転判定\n
+${json.skill_total[3].replace('r','dx')} 射撃判定\n
+${json.skill_total[4].replace('r','dx')} 知覚判定\n
+${json.skill_total[5].replace('r','dx')} 芸術判定\n
+${json.skill_total[6].replace('r','dx')} RC判定\n
+${json.skill_total[7].replace('r','dx')} 意志判定\n
+${json.skill_total[8].replace('r','dx')} 知識判定\n
+${json.skill_total[9].replace('r','dx')} 交渉判定\n
+${json.skill_total[10].replace('r','dx')} 調達判定\n
+${json.skill_total[11].replace('r','dx')} 情報判定\n
+ET 感情表`
   }
 
   return {kind:"character", data:data}
