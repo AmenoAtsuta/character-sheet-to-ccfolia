@@ -48,7 +48,7 @@ const ToSatasupeCcfolia=(json:any,key:string):CharacterClipboardData=>{
 言語:${json.base.langueges}
 ${json.base.memo}`,
     initiative: Number(json.base.power.initiative),
-    externalUrl:`https://character-sheets.appspot.com/stellar/edit.html?key=${key}`,
+    externalUrl:`https://character-sheets.appspot.com/satasupe/edit.html?key=${key}`,
     status:[
       {label:"肉体点", value: 10, max: 10},
       {label:"精神点", value: 10, max: 10},
