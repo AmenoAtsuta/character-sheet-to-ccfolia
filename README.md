@@ -22,6 +22,7 @@ https://www.youtube.com/channel/UCcNBKvsZBMPMJTwNaraELHg
 
 - 銀剣のステラナイツ(ユドナリウムも試験的に対応)
 - サタスペ
+- デッドラインヒーローズ
 
 ### キャラクター保管所様
 

@@ -10,8 +10,10 @@ import { List, ListItem, ListItemText, Accordion, AccordionSummary, AccordionDet
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {ToStellarKnightsCcfolia, ToStellarKnightsUdonarium} from "./to_charasheet_json/StellarKnights"
 import {ToSatasupeCcfolia, ToSatasupeUdonarium} from "./to_charasheet_json/Satasupe"
+import {ToDlhCcfolia} from "./to_charasheet_json/Dlh"
 import VampireBloodSystemSort from './to_charasheet_json/VampireBloodSystemSorting';
 import './App.css';
+import { DirtyLensSharp } from '@mui/icons-material';
 
 //ココフォリア出力用のtype定義
 type CharacterClipboardData = {
@@ -141,6 +143,9 @@ const App:React.VFC=()=>{
           case "satasupe":
             copyCharaSheetJson(ToSatasupeCcfolia(json, sheetId))
             break
+          case "dlh":
+            copyCharaSheetJson(ToDlhCcfolia(json, sheetId))
+            break
           default:
             alert("対応していないシステムです")
         }
@@ -258,6 +263,7 @@ const App:React.VFC=()=>{
             <ListItem divider button alignItems='center' css={systemListLi}>
               <ListItemText primary="銀剣のステラナイツ(ユドナ仮対応)" />
               <ListItemText primary="サタスペ" />
+              <ListItemText primary="デッドラインヒーローズ" />
             </ListItem>
           </List>
           <h3>キャラクター保管所様</h3>
