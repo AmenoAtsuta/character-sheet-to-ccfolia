@@ -51,6 +51,27 @@ const ToDlhCcfolia=(json:any, key:string):CharacterClipboardData=>{
     x:2,
     y:2,
     active:true,
+		commands:`DCLx 肉体デスチャート(xにはマイナス値を記入)\n
+		DCSx 精神デスチャート(xにはマイナス値を記入)\n
+		DCCx 環境デスチャート(xにはマイナス値を記入)\n
+		DLH${json.skills.body.s1.total} 白兵判定\n
+		DLH${json.skills.body.s2.total} 射撃判定\n
+		DLH${json.skills.body.s3.total} 運動判定\n
+		DLH${json.skills.body.s4.total} 生存判定\n
+		DLH${json.skills.body.s5.total} 操縦判定\n
+		DLH${json.skills.mental.s1.total} 霊能判定\n
+		DLH${json.skills.mental.s2.total} 心理判定\n
+		DLH${json.skills.mental.s3.total} 意志判定\n
+		DLH${json.skills.mental.s4.total} 知覚判定\n
+		DLH${json.skills.mental.s5.total} 追憶判定\n
+		DLH${json.skills.env.s1.total} 作戦判定\n
+		DLH${json.skills.env.s2.total} 隠密判定\n
+		DLH${json.skills.env.s3.total} 交渉判定\n
+		DLH${json.skills.env.s4.total} 科学判定\n
+		DLH${json.skills.env.s5.total} 経済判定\n
+		HNC ヒーローネームチャート\n
+		RNCJ リアルネームチャート(日本)\n
+		RNCO リアルネームチャート(海外)`
 	}
 
 	return {kind:"character", data:data}
