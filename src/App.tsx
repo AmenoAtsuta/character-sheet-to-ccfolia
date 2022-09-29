@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {ToStellarKnightsCcfolia, ToStellarKnightsUdonarium} from "./to_charasheet_json/StellarKnights"
 import {ToSatasupeCcfolia, ToSatasupeUdonarium} from "./to_charasheet_json/Satasupe"
 import {ToDlhCcfolia} from "./to_charasheet_json/Dlh"
+import {ToShinobigamiCcfolia} from "./to_charasheet_json/Shinobigami"
 import VampireBloodSystemSort from './to_charasheet_json/VampireBloodSystemSorting';
 import './App.css';
 import { DirtyLensSharp } from '@mui/icons-material';
@@ -145,6 +146,9 @@ const App:React.VFC=()=>{
             break
           case "dlh":
             copyCharaSheetJson(ToDlhCcfolia(json, sheetId))
+            break
+          case "shinobigami":
+            copyCharaSheetJson(ToShinobigamiCcfolia(json, sheetId))
             break
           default:
             alert("対応していないシステムです")
