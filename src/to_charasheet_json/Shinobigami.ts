@@ -35,6 +35,7 @@ type SkillType = {
 }
 
 const ToShinobigamiCcfolia=(json:any, key:string):CharacterClipboardData=>{
+
   const skills:SkillType={
     "器術":["絡繰術","火術","水術","針術","仕込み","衣装術","縄術","登術","拷問術","壊器術","掘削術"],
     "体術":["騎乗術","砲術","手裏剣術","手練","身体操術","歩法","走法","飛術","骨法術","刀術","怪力"],
@@ -46,13 +47,22 @@ const ToShinobigamiCcfolia=(json:any, key:string):CharacterClipboardData=>{
 
 
   const targetValue=()=>{
+    /*
+    持っている特技を割り出す関数です
+    帰ってくるJSONに書いてある特技の場所が"skills.row${特技}.name${分野}"の形式で返ってくるため正規表現で切り出しています
+    */
     const haveSkills=Object.keys(json.learned).map((key)=>{
-      if(json.learned[key].id)console.log(json.learned[key].id.match(/\d+/)[0]+','+json.learned[key].id.match(/\d+/g)[1])
       if(json.learned[key].id)return [Number(json.learned[key].id.match(/\d+/g)[1]),Number(json.learned[key].id.match(/\d+/)[0])]
       else return null
     })
+    //何故か帰ってくるJSONの所持特技の最初だけnullなためその分をshift関数で消しています
     haveSkills.shift()
 
+    /*
+    ギャップ埋めの箇所がJSONのskillsの中にあるのでそれによってギャップ埋め処理を行っています
+    使用する特技の位置と目標の特技分野が一緒ならば処理せず、そうでない場合はギャップの箇所によって同じ処理を行っています
+    ギャップを埋めるのは一箇所ではないためギャップの分だけ目標値を減算する処理をしています
+    */
     const gap=(element:number,objectIndex:number)=>{
       let gapMinus:number=0;
       if(element-objectIndex!==0){
@@ -75,6 +85,14 @@ const ToShinobigamiCcfolia=(json:any, key:string):CharacterClipboardData=>{
       return gapMinus
     }
 
+    /*
+    特技ごとの目標値(正確には特技の距離)を割り出す関数です
+    特技一覧が二次元配列のようなものなので2重ループを掛けています
+    分野ごとにループし、その中で特技ごとのループをして
+    更にその中で持っている特技でループを掛けどの特技から一番近い変わりだしています
+    持っているスキルごとの距離をmap関数で配列化し、スプレッド演算子で配列をバラしてMath.min関数でその中で一番近いものを採用しています
+    配列をバラしているのはMath.min関数が配列に対応していないためです
+    */
     const targetValuesArray=Object.keys(skills).map((key:string, objectIndex:number)=>{
       return skills[key].map((field,index:number)=>{
         return Math.min(...haveSkills.map((element)=>{
