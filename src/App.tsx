@@ -268,6 +268,7 @@ const App:React.VFC=()=>{
               <ListItemText primary="銀剣のステラナイツ(ユドナ仮対応)" />
               <ListItemText primary="サタスペ" />
               <ListItemText primary="デッドラインヒーローズ" />
+              <ListItemText primary="シノビガミ" />
             </ListItem>
           </List>
           <h3>キャラクター保管所様</h3>
